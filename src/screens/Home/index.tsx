@@ -14,16 +14,8 @@ interface IParticipantsProps {
   name: string;
 }
 
-const participantsConfirmed = [
-  { id: "e7a025b9-5cb7-45c2-814a-86b53206ff34", name: "Lucas" },
-  { id: "9195bb7e-0c49-4196-9d08-1db2659bea50", name: "Mateus" },
-  { id: "55e1ce99-f719-4bcc-9591-7005c0fc8d8f", name: "Luciano" },
-  { id: "872c77ec-00e8-497b-982a-1817586f6f24", name: "Alberto" },
-  { id: "450816e8-c322-4e7d-a62f-d6461f965c4d", name: "Rosangela" }
-];
-
 export function Home() {
-  const [participantsList, setNewParticipantsList] = useState<IParticipantsProps[]>(participantsConfirmed);
+  const [participantsList, setNewParticipantsList] = useState<IParticipantsProps[]>([]);
   const [participants, setParticipants] = useState('');
 
   const handleNewParticipant = (value: string) => {
