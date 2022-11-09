@@ -1,5 +1,5 @@
-import { StyleSheet } from "react-native";
-import theme from "../../theme";
+import { StyleSheet } from 'react-native';
+import theme from '../../theme';
 
 export const styles = StyleSheet.create({
   container: {
@@ -36,7 +36,7 @@ export const styles = StyleSheet.create({
     fontSize: 20,
     lineHeight: 23,
 
-    color: theme.COLORS.TEXT_PRIMARY
+    color: theme.COLORS.TEXT_PRIMARY,
   },
   textContainer: {
     marginTop: 28,
