@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
   },
   container: {
     width: '85%',
-    height: '25%',
+    height: 200,
     padding: 24,
     borderWidth: 0.5,
     borderColor: theme.COLORS.HIGHLIGHT_SECONDARY,
