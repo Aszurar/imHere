@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@expo-google-fonts/roboto": "^0.2.2",
+    "@react-native-async-storage/async-storage": "~1.17.3",
     "@types/uuid": "^8.3.4",
     "expo": "~46.0.8",
     "expo-font": "~10.2.0",
