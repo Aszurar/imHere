@@ -7,14 +7,14 @@ import { Input } from '../../components/Input';
 import { Participant } from '../../components/Participant';
 import { TitleFormModal } from '../../components/TitleFormModal';
 
+import { IParticipantsProps } from '../../dto/participantDTO';
+
 import { styles } from './styles';
 import { WarningModal } from '../../components/WarningModal';
+import { saveParticipant } from '../../storage/participant/saveParticipant';
+import { deleteParticipant } from '../../storage/participant/deleteParticipant';
+import { getAllParticipants } from '../../storage/participant/getAllParticipants';
 
-
-interface IParticipantsProps {
-  id: string;
-  name: string;
-}
 
 interface handleOpenWarningModalProps {
   title: string;
@@ -23,15 +23,15 @@ interface handleOpenWarningModalProps {
 }
 
 export function Home() {
-  const [participantsList, setNewParticipantsList] = useState<IParticipantsProps[]>([]);
-  const [participants, setParticipants] = useState('');
+  const [participantsList, setParticipantsList] = useState<IParticipantsProps[]>([]);
+  const [participant, setParticipants] = useState('');
   const [isTitle, setIsTitle] = useState(false);
   const [eventName, setEventName] = useState('');
   const [isWarningModalVisible, setIsWarningModalVisible] = useState(false);
   const [titleModal, setTitleModal] = useState('');
   const [subtitleModal, setSubtitleModal] = useState('');
   const [isModalCancelButton, setIsModalCancelButton] = useState(false);
-  const [removeName, setRemoveName] = useState("");
+  const [removeParticipantId, setRemovePartipantId] = useState("");
 
   const handleCloseModal = useCallback(() => {
     setIsTitle(false);
@@ -67,9 +67,36 @@ export function Home() {
     setParticipants(value);
   }
 
+
+  const handleGetAllParticipants = async () => {
+    try {
+      const participantsStoraged = await getAllParticipants();
+      setParticipantsList(participantsStoraged)
+    } catch (error) {
+      handleOpenWarningModal({
+        title: "Erro ao tentar resgatar participantes salvos",
+        subtitle: `Por favor, tente mais tarde.`,
+      })
+    } finally {
+    }
+  }
+
+  const handleSaveParticipantsList = async (newParticipant: IParticipantsProps) => {
+    try {
+      await saveParticipant(newParticipant);
+      handleGetAllParticipants();
+    } catch (error) {
+      handleOpenWarningModal({
+        title: "Erro ao tentar salvar novo participante",
+        subtitle: `Por favor, tente mais tarde.`,
+      })
+      return;
+    }
+  }
+
+
   const handleAddNewParticipantToParticipantsList = () => {
-    if (participants === '') {
-      console.info("Entrou no if de verificação se foi ou não digital algo no Input antes de submeter.")
+    if (!participant.trim()) {
       handleOpenWarningModal({
         title: "Campo vazio",
         subtitle: "Digite o nome do participante!"
@@ -77,7 +104,7 @@ export function Home() {
       return;
     }
 
-    const participantAlreadyExists = participantsList.find(participant => participant.name === participants);
+    const participantAlreadyExists = participantsList.find(existingParticipant => existingParticipant.name === participant);
 
     if (participantAlreadyExists) {
       handleOpenWarningModal({
@@ -89,30 +116,40 @@ export function Home() {
 
     const newParticipant = {
       id: uuidV4(),
-      name: participants
+      name: participant
     }
-
-    setNewParticipantsList(prevState => [...prevState, newParticipant]);
     setParticipants('');
+    handleSaveParticipantsList(newParticipant)
+    handleGetAllParticipants();
   }
 
-  const handleWarningRemoveParticipant = (name: string) => {
-    setRemoveName(name);
+  const handleWarningRemoveParticipant = (participant: IParticipantsProps) => {
+    setRemovePartipantId(participant.id);
 
     handleOpenWarningModal({
       title: "Remover participante",
-      subtitle: `Deseja remover ${name} da lista?`,
+      subtitle: `Tem certeza que deseja remover ${participant.name} da lista?`,
       isModalCancelButton: true,
     })
   }
 
-  const handleRemoveParticipantFromParticipantsList = () => {
-    setNewParticipantsList(participantsList.filter(participant => participant.name !== removeName))
+  const handleDeleteParticipant = async () => {
+    try {
+      await deleteParticipant(removeParticipantId);
+      handleGetAllParticipants();
+    } catch (error) {
+      handleOpenWarningModal({
+        title: "Erro ao tentar deletar participante",
+        subtitle: `Por favor, tente mais tarde.`,
+      })
+      return;
+    }
   }
 
 
   useEffect(() => {
-  }, [participantsList])
+    handleGetAllParticipants();
+  }, [])
 
   return (
     <View style={styles.container}>
@@ -127,7 +164,7 @@ export function Home() {
       </View>
       <View style={styles.inputContainer}>
         <Input
-          value={participants}
+          value={participant}
           placeholder="Nome do participante"
           onChangeText={handleNewParticipant}
           handleAddNewParticipantToParticipantsList={handleAddNewParticipantToParticipantsList}
@@ -144,7 +181,7 @@ export function Home() {
             <Participant
               key={item.id}
               name={item.name}
-              handleRemoveParticipant={handleWarningRemoveParticipant}
+              handleRemoveParticipant={() => handleWarningRemoveParticipant(item)}
             />
           )}
           ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
@@ -177,7 +214,7 @@ export function Home() {
           title={titleModal}
           subtitle={subtitleModal}
           onCloseModal={handleCloseWarningModal}
-          confirmButton={handleRemoveParticipantFromParticipantsList}
+          confirmButton={handleDeleteParticipant}
           footerWithDeteteButton={isModalCancelButton}
         />
       </Modal>
