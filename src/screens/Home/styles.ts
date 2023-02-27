@@ -25,8 +25,23 @@ export const styles = StyleSheet.create({
     lineheight: 19,
     color: theme.COLORS.TEXT_SECONDARY,
   },
+  eventDetails: {
+    marginTop: 16,
+    padding: 10,
+    width: '80%',
+    alignItems: 'center',
+    alignSelf: 'center',
+    borderRadius: 200,
+    borderWidth: 1,
+    borderColor: theme.COLORS.HIGHLIGHT_SECONDARY,
+  },
+  eventDetailsText: {
+    fontfamily: theme.FONTS.BOLD,
+    fontsize: 16,
+    color: theme.COLORS.TEXT_PRIMARY,
+  },
   inputContainer: {
-    marginBottom: 42,
+    marginBottom: 32,
   },
   subtitleContainer: {
     flex: 1,

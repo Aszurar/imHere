@@ -1,19 +1,26 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { FlatList, Modal, Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, Keyboard, Modal, Pressable, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
 import 'react-native-get-random-values';
 import { v4 as uuidV4 } from "uuid";
 
 import { Input } from '../../components/Input';
 import { Participant } from '../../components/Participant';
+import { WarningModal } from '../../components/WarningModal';
 import { TitleFormModal } from '../../components/TitleFormModal';
 
+import { IEventDetailsProps } from '../../dto/eventDetails';
 import { IParticipantsProps } from '../../dto/participantDTO';
 
-import { styles } from './styles';
-import { WarningModal } from '../../components/WarningModal';
 import { saveParticipant } from '../../storage/participant/saveParticipant';
+import { getEventDetails } from '../../storage/eventDetails/getEventDetails';
+import { saveEventDetails } from '../../storage/eventDetails/saveEventDetails';
 import { deleteParticipant } from '../../storage/participant/deleteParticipant';
 import { getAllParticipants } from '../../storage/participant/getAllParticipants';
+
+import { dateFormatValidation, formatDateToSetence } from '../../utils/format';
+
+import theme from '../../theme';
+import { styles } from './styles';
 
 
 interface handleOpenWarningModalProps {
@@ -23,15 +30,33 @@ interface handleOpenWarningModalProps {
 }
 
 export function Home() {
+  const [eventDate, setEventDate] = useState("");
+  const [eventName, setEventName] = useState('Nome do evento');
+  const [participant, setParticipant] = useState('');
   const [participantsList, setParticipantsList] = useState<IParticipantsProps[]>([]);
-  const [participant, setParticipants] = useState('');
+
+  const [isPressed, setIsPressed] = useState(false)
+
   const [isTitle, setIsTitle] = useState(false);
-  const [eventName, setEventName] = useState('');
   const [isWarningModalVisible, setIsWarningModalVisible] = useState(false);
   const [titleModal, setTitleModal] = useState('');
   const [subtitleModal, setSubtitleModal] = useState('');
   const [isModalCancelButton, setIsModalCancelButton] = useState(false);
   const [removeParticipantId, setRemovePartipantId] = useState("");
+
+  const backgroundColorButton = isPressed ? theme.COLORS.HIGHLIGHT_SECONDARY : "transparent"
+  const eventNameFormatted = eventName ? eventName : "Nome do evento";
+  let eventDateFormatted = "";
+  if (dateFormatValidation.format.test(eventDate) && eventDate.trim()) {
+    eventDateFormatted = formatDateToSetence(eventDate)
+  }
+
+  const handleFocusButton = useCallback(() => {
+    setIsPressed(true)
+  }, [])
+  const handleBlurButton = useCallback(() => {
+    setIsPressed(false)
+  }, [])
 
   const handleCloseModal = useCallback(() => {
     setIsTitle(false);
@@ -39,14 +64,6 @@ export function Home() {
 
   const handleOpenModal = useCallback(() => {
     setIsTitle(true);
-  }, [])
-
-  const handleNewEventName = useCallback((newEventName: string) => {
-    setEventName(newEventName);
-  }, [])
-
-  const handleCleanEventName = useCallback(() => {
-    setEventName('');
   }, [])
 
 
@@ -63,11 +80,41 @@ export function Home() {
     setIsWarningModalVisible(false);
   }, [])
 
-  const handleNewParticipant = (value: string) => {
-    setParticipants(value);
+
+  const handleGetEventDetails = async () => {
+    try {
+      const response = await getEventDetails();
+      if (response) {
+        setEventDate(response.date)
+        setEventName(response.name)
+      }
+    } catch (error) {
+      handleOpenWarningModal({
+        title: "Erro ao tentar resgatar o nome e data do evento cadastrados",
+        subtitle: `Por favor, tente mais tarde.`,
+      })
+    }
+  }
+  const handleSaveEventDetails = async () => {
+    try {
+      const newEventDetails: IEventDetailsProps = {
+        date: eventDate,
+        name: eventName,
+      }
+      await saveEventDetails(newEventDetails);
+      handleGetEventDetails();
+    } catch (error) {
+      handleOpenWarningModal({
+        title: "Erro ao tentar cadastrar nome e data do evento",
+        subtitle: `Por favor, tente mais tarde.`,
+      })
+    }
   }
 
 
+  const handleNewParticipant = (value: string) => {
+    setParticipant(value);
+  }
   const handleGetAllParticipants = async () => {
     try {
       const participantsStoraged = await getAllParticipants();
@@ -77,10 +124,8 @@ export function Home() {
         title: "Erro ao tentar resgatar participantes salvos",
         subtitle: `Por favor, tente mais tarde.`,
       })
-    } finally {
     }
   }
-
   const handleSaveParticipantsList = async (newParticipant: IParticipantsProps) => {
     try {
       await saveParticipant(newParticipant);
@@ -93,8 +138,6 @@ export function Home() {
       return;
     }
   }
-
-
   const handleAddNewParticipantToParticipantsList = () => {
     if (!participant.trim()) {
       handleOpenWarningModal({
@@ -118,11 +161,10 @@ export function Home() {
       id: uuidV4(),
       name: participant
     }
-    setParticipants('');
+    setParticipant('');
     handleSaveParticipantsList(newParticipant)
     handleGetAllParticipants();
   }
-
   const handleWarningRemoveParticipant = (participant: IParticipantsProps) => {
     setRemovePartipantId(participant.id);
 
@@ -132,7 +174,6 @@ export function Home() {
       isModalCancelButton: true,
     })
   }
-
   const handleDeleteParticipant = async () => {
     try {
       await deleteParticipant(removeParticipantId);
@@ -148,30 +189,45 @@ export function Home() {
 
 
   useEffect(() => {
+    handleGetEventDetails();
     handleGetAllParticipants();
   }, [])
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View>
-          <TouchableOpacity onPress={handleOpenModal}>
-            <Text style={styles.title}>{eventName ? eventName : "Nome do evento"}</Text>
-          </TouchableOpacity>
-          <Text style={styles.date}>Sexta, 4 de Novembro de 2022.</Text>
+          <View style={styles.header}>
+            <View>
+              <Text style={styles.title}>{eventNameFormatted}</Text>
+              <Text style={styles.date}>{eventDateFormatted}.</Text>
+              <Pressable
+                onPress={handleOpenModal}
+                style={[styles.eventDetails, { backgroundColor: backgroundColorButton }]}
+                onPressIn={handleFocusButton}
+                onPressOut={handleBlurButton}
+              >
+                <Text style={styles.eventDetailsText}>Trocar nome e data do evento</Text>
+              </Pressable>
+            </View>
+          </View>
+          <View style={styles.inputContainer}>
+            <Input
+              value={participant}
+              placeholder="Nome do participante"
+              onChangeText={handleNewParticipant}
+              handleAddNewParticipantToParticipantsList={handleAddNewParticipantToParticipantsList}
+              onSubmitEditing={handleAddNewParticipantToParticipantsList}
+              returnKeyType='done'
+            />
+          </View>
         </View>
+      </TouchableWithoutFeedback>
 
-      </View>
-      <View style={styles.inputContainer}>
-        <Input
-          value={participant}
-          placeholder="Nome do participante"
-          onChangeText={handleNewParticipant}
-          handleAddNewParticipantToParticipantsList={handleAddNewParticipantToParticipantsList}
-        />
-      </View>
       <View style={styles.subtitleContainer}>
-        <Text style={styles.subtitle}>Participantes</Text>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <Text style={styles.subtitle}>Participantes</Text>
+        </TouchableWithoutFeedback>
         <FlatList
           data={participantsList}
           keyExtractor={item => item.id}
@@ -193,6 +249,7 @@ export function Home() {
               </Text>
             </View>
           )}
+          contentContainerStyle={{ paddingBottom: 24 }}
         />
       </View>
       <Modal
@@ -201,7 +258,11 @@ export function Home() {
         transparent={true}
       >
         <TitleFormModal
-          onNewEventName={handleNewEventName}
+          eventDate={eventDate}
+          eventName={eventName}
+          setEventDate={setEventDate}
+          setEventName={setEventName}
+          onSubmit={handleSaveEventDetails}
           onCloseModal={handleCloseModal}
         />
       </Modal>
