@@ -10,7 +10,6 @@ export const styles = StyleSheet.create({
   },
   container: {
     width: '85%',
-    height: 200,
     padding: 24,
     borderWidth: 0.5,
     borderColor: theme.COLORS.HIGHLIGHT_SECONDARY,
@@ -37,15 +36,20 @@ export const styles = StyleSheet.create({
     fontFamily: theme.FONTS.REGULAR,
     color: theme.COLORS.TEXT_PRIMARY,
     borderBottomWidth: 0.5,
-    borderBottomColor: theme.COLORS.HIGHLIGHT_SECONDARY,
+  },
+  invalidMessage: {
+    marginTop: 4,
+    color: theme.COLORS.TEXT_INVALID_MESSAGE,
+    fontSize: 12,
+    fontWeight: '500',
   },
   Footer: {
-    flex: 1,
     width: '60%',
     flexDirection: 'row',
     alignSelf: 'flex-end',
     alignItems: 'flex-end',
     justifyContent: 'space-between',
+    marginTop: 12,
   },
   button: {
     borderRadius: 4,

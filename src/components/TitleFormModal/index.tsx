@@ -1,34 +1,116 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Text, TextInput, TouchableOpacity, View } from 'react-native';
-import theme from '../../theme';
-import { styles } from './styles';
 
+import theme from '../../theme';
+import { dateFormatValidation, maskDate } from '../../utils/format';
+import { isValidBRLDayDate, isValidBRLMonthDate } from '../../utils/validations';
+
+import { styles } from './styles';
 interface ITitleFormModalProps {
+  eventDate: string;
+  eventName: string;
+  setEventDate: (date: string) => void;
+  setEventName: (name: string) => void;
   onCloseModal(): void;
-  onNewEventName(newEventName: string): void;
+  onSubmit: () => void;
 }
 
-export function TitleFormModal({ onCloseModal, onNewEventName }: ITitleFormModalProps) {
-  const [inputValue, setInputValue] = useState('');
+export function TitleFormModal({
+  eventDate,
+  eventName,
+  setEventDate,
+  setEventName,
+  onCloseModal,
+  onSubmit
+}: ITitleFormModalProps) {
+  const [dateInvalidMessage, setDateInvalidMessage] = useState("");
+  const [eventNameInvalidMessage, setEventNameInvalidMessage] = useState("");
+  const dateInputRef = useRef<TextInput>(null);
+
+  const dateInputBottomBorderColor = dateInvalidMessage ? theme.COLORS.TEXT_INVALID_MESSAGE : theme.COLORS.HIGHLIGHT_SECONDARY
+  const eventNameInputBottomBorderColor = eventNameInvalidMessage ? theme.COLORS.TEXT_INVALID_MESSAGE : theme.COLORS.HIGHLIGHT_SECONDARY
+
+  function validateDate(value?: string) {
+    if (!value) {
+      return false
+    }
+
+    if (!value.trim()) {
+      return false
+    }
+    if (!dateFormatValidation.format.test(value as string)) {
+      setDateInvalidMessage("Data inválida, por favor, siga o formato dd/mm/aaaa");
+      return false;
+    }
+
+    const isBRLValidDay = isValidBRLDayDate(value);
+    const isBRLValidMonth = isValidBRLMonthDate(value);
+    if (!isBRLValidDay) {
+      setDateInvalidMessage("Dia inválido.");
+      return false
+    }
+    if (!isBRLValidMonth) {
+      setDateInvalidMessage("Mês inválido. Utilize um mês entre 01 e 12.");
+      return false
+    }
+
+    return true
+  }
+
+  function handleSubmit() {
+    setDateInvalidMessage("");
+    setEventNameInvalidMessage("");
+
+    const isDateValid = validateDate(eventDate);
+    if (!eventName.trim() || !isDateValid) {
+      if (!eventName.trim()) {
+        setEventNameInvalidMessage("É necessário definir um nome para o vento");
+      }
+      return;
+    }
+
+    onSubmit();
+    onCloseModal();
+  }
   return (
     <View style={styles.modalContainer}>
       <View style={styles.container}>
         <Text style={styles.title}>Qual nome do evento?</Text>
         <View style={styles.inputContainer}>
           <TextInput
-            style={styles.input}
+            style={[styles.input, { borderBottomColor: eventNameInputBottomBorderColor }]}
             returnKeyType="send"
             keyboardType="email-address"
             placeholder='Nome do evento'
-            onChangeText={setInputValue}
+            onChangeText={setEventName}
             placeholderTextColor={theme.COLORS.TEXT_SECONDARY}
+            value={eventName}
+            onSubmitEditing={() => dateInputRef.current?.focus()}
           />
+          {eventNameInvalidMessage && <Text style={styles.invalidMessage} >{eventNameInvalidMessage}</Text>}
         </View>
+        <Text style={styles.title}>Qual a data do evento?</Text>
+        <View style={styles.inputContainer}>
+          <TextInput
+            ref={dateInputRef}
+            style={[styles.input, { borderBottomColor: dateInputBottomBorderColor }]}
+            returnKeyType="send"
+            keyboardType="numeric"
+            placeholder='Data do evento'
+            maxLength={10}
+            onChangeText={(text) => setEventDate(maskDate(text))}
+            placeholderTextColor={theme.COLORS.TEXT_SECONDARY}
+            value={eventDate}
+            onSubmitEditing={handleSubmit}
+          />
+          {dateInvalidMessage && <Text style={styles.invalidMessage} >{dateInvalidMessage}</Text>}
+        </View>
+
         <View style={styles.Footer}>
           <TouchableOpacity onPress={onCloseModal} style={styles.button}>
             <Text style={[styles.buttonText, { color: theme.COLORS.DELETE }]}>Cancelar</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => { onNewEventName(inputValue); onCloseModal() }} style={styles.button}>
+          <TouchableOpacity onPress={handleSubmit} style={styles.button}>
             <Text style={[styles.buttonText, { color: theme.COLORS.SUCCESS }]}>Salvar</Text>
           </TouchableOpacity>
         </View>
