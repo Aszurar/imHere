@@ -12,6 +12,10 @@ export const styles = StyleSheet.create({
   header: {
     marginBottom: 34,
   },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
   title: {
     fontFamily: theme.FONTS.BOLD,
     fontSize: 24,
@@ -25,7 +29,7 @@ export const styles = StyleSheet.create({
     lineheight: 19,
     color: theme.COLORS.TEXT_SECONDARY,
   },
-  eventDetails: {
+  textButton: {
     marginTop: 16,
     padding: 10,
     width: '80%',
@@ -33,7 +37,15 @@ export const styles = StyleSheet.create({
     alignSelf: 'center',
     borderRadius: 200,
     borderWidth: 1,
+  },
+  eventDetailsBorderButton: {
     borderColor: theme.COLORS.HIGHLIGHT_SECONDARY,
+  },
+  eventDetailsBackgroundButtonActivated: {
+    backgroundColor: theme.COLORS.HIGHLIGHT_SECONDARY,
+  },
+  eventDetailsBackgroundButtonDisable: {
+    backgroundColor: 'transparent',
   },
   eventDetailsText: {
     fontfamily: theme.FONTS.BOLD,
@@ -63,5 +75,14 @@ export const styles = StyleSheet.create({
     lineHeight: 16,
     color: theme.COLORS.TEXT_PRIMARY,
     textAlign: 'center',
+  },
+  deleteEventBorderButton: {
+    borderColor: theme.COLORS.DELETE,
+  },
+  deleteEventBackgroundButtonActivated: {
+    backgroundColor: theme.COLORS.DELETE,
+  },
+  deleteEventBackgroundButtonDisable: {
+    backgroundColor: 'transparent',
   },
 });

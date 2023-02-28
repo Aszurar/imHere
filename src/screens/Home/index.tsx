@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { SetStateAction, useCallback, useEffect, useState } from 'react';
 import { FlatList, Keyboard, Modal, Pressable, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
 import 'react-native-get-random-values';
 import { v4 as uuidV4 } from "uuid";
@@ -19,14 +19,18 @@ import { getAllParticipants } from '../../storage/participant/getAllParticipants
 
 import { dateFormatValidation, formatDateToSetence } from '../../utils/format';
 
-import theme from '../../theme';
 import { styles } from './styles';
+import { Button } from '../../components/Button';
+import { deleteEventDetails } from '../../storage/eventDetails/deleteEventDetails';
+import { deleteEvent } from '../../storage/event/deleteEvent';
 
+type DeleteEventOrParticipantProps = "event" | "participant"
 
 interface handleOpenWarningModalProps {
   title: string;
   subtitle: string;
   isModalCancelButton?: boolean;
+  isDeleteEventOrParticipant?: DeleteEventOrParticipantProps;
 }
 
 export function Home() {
@@ -35,28 +39,45 @@ export function Home() {
   const [participant, setParticipant] = useState('');
   const [participantsList, setParticipantsList] = useState<IParticipantsProps[]>([]);
 
-  const [isPressed, setIsPressed] = useState(false)
+  const [isSwitchEventDetailsButtonPressed, setIsSwitchEventDetailsButtonPressed] = useState(false);
+  const [isDeleteButtonPressed, setIsDeleteButtonPressed] = useState(false);
 
   const [isTitle, setIsTitle] = useState(false);
   const [isWarningModalVisible, setIsWarningModalVisible] = useState(false);
   const [titleModal, setTitleModal] = useState('');
   const [subtitleModal, setSubtitleModal] = useState('');
+  const [isDeleteEvent, setIsDeleteEvent] = useState(false);
+
   const [isModalCancelButton, setIsModalCancelButton] = useState(false);
   const [removeParticipantId, setRemovePartipantId] = useState("");
 
-  const backgroundColorButton = isPressed ? theme.COLORS.HIGHLIGHT_SECONDARY : "transparent"
+  const totalParticipants = participantsList.length
+  const isEventDetails = eventName || eventDate
+  const isAnyEvent = isEventDetails || totalParticipants > 0
+
+  const backgroundColorSwitchEventDetailsButton = isSwitchEventDetailsButtonPressed ? styles.eventDetailsBackgroundButtonActivated : styles.eventDetailsBackgroundButtonDisable
+  const backgroundColorDeleteButton = isDeleteButtonPressed ? styles.deleteEventBackgroundButtonActivated : styles.deleteEventBackgroundButtonDisable
+
   const eventNameFormatted = eventName ? eventName : "Nome do evento";
   let eventDateFormatted = "";
   if (dateFormatValidation.format.test(eventDate) && eventDate.trim()) {
     eventDateFormatted = formatDateToSetence(eventDate)
   }
 
-  const handleFocusButton = useCallback(() => {
-    setIsPressed(true)
+  const handleDeleteButtonFocus = useCallback(() => {
+    setIsDeleteButtonPressed(true)
   }, [])
-  const handleBlurButton = useCallback(() => {
-    setIsPressed(false)
+  const handleDeleteButtonBlur = useCallback(() => {
+    setIsDeleteButtonPressed(false)
   }, [])
+
+  const handleSwitchEventDetailsButtonFocus = useCallback(() => {
+    setIsSwitchEventDetailsButtonPressed(true)
+  }, [])
+  const handleSwitchEventDetailsButtonBlur = useCallback(() => {
+    setIsSwitchEventDetailsButtonPressed(false)
+  }, [])
+
 
   const handleCloseModal = useCallback(() => {
     setIsTitle(false);
@@ -67,7 +88,11 @@ export function Home() {
   }, [])
 
 
-  const handleOpenWarningModal = useCallback(({ title, subtitle, isModalCancelButton = false }: handleOpenWarningModalProps) => {
+  const handleOpenWarningModal = useCallback(({
+    title,
+    subtitle,
+    isModalCancelButton = false,
+  }: handleOpenWarningModalProps) => {
     setTitleModal(title);
     setSubtitleModal(subtitle);
     setIsModalCancelButton(isModalCancelButton);
@@ -109,6 +134,38 @@ export function Home() {
         subtitle: `Por favor, tente mais tarde.`,
       })
     }
+  }
+  const handleDeleteEventDetails = async () => {
+    try {
+      await deleteEventDetails();
+      handleGetEventDetails()
+    } catch (error) {
+      handleOpenWarningModal({
+        title: "Erro ao tentar deletar nome e data do evento",
+        subtitle: `Por favor, tente mais tarde.`,
+      })
+    }
+  }
+
+  const handleDeleteEvent = async () => {
+    try {
+      await deleteEvent();
+      handleGetEventDetails();
+      handleGetAllParticipants();
+    } catch (error) {
+      handleOpenWarningModal({
+        title: "Erro ao tentar deletar evento",
+        subtitle: `Por favor, tente mais tarde.`,
+      })
+    }
+  }
+  const handleWarningDeleteEvent = () => {
+    setIsDeleteEvent(true)
+    handleOpenWarningModal({
+      title: "Deletar Evento",
+      subtitle: `Tem certeza que deseja apagar todos os dados do evento?`,
+      isModalCancelButton: true,
+    })
   }
 
 
@@ -172,6 +229,7 @@ export function Home() {
       title: "Remover participante",
       subtitle: `Tem certeza que deseja remover ${participant.name} da lista?`,
       isModalCancelButton: true,
+
     })
   }
   const handleDeleteParticipant = async () => {
@@ -187,6 +245,7 @@ export function Home() {
     }
   }
 
+  const handleConfirmModalFunction = isDeleteEvent ? handleDeleteEvent : handleDeleteParticipant;
 
   useEffect(() => {
     handleGetEventDetails();
@@ -199,13 +258,22 @@ export function Home() {
         <View>
           <View style={styles.header}>
             <View>
-              <Text style={styles.title}>{eventNameFormatted}</Text>
-              <Text style={styles.date}>{eventDateFormatted}.</Text>
+              <View style={styles.row}>
+                <View >
+                  <Text style={styles.title}>{eventNameFormatted}</Text>
+                  <Text style={styles.date}>{eventDateFormatted}.</Text>
+                </View>
+                {(isEventDetails) && <Button deleteIcon onPress={handleDeleteEventDetails} />}
+              </View>
               <Pressable
                 onPress={handleOpenModal}
-                style={[styles.eventDetails, { backgroundColor: backgroundColorButton }]}
-                onPressIn={handleFocusButton}
-                onPressOut={handleBlurButton}
+                style={[
+                  styles.textButton,
+                  styles.eventDetailsBorderButton,
+                  backgroundColorSwitchEventDetailsButton
+                ]}
+                onPressIn={handleSwitchEventDetailsButtonFocus}
+                onPressOut={handleSwitchEventDetailsButtonBlur}
               >
                 <Text style={styles.eventDetailsText}>Trocar nome e data do evento</Text>
               </Pressable>
@@ -249,8 +317,24 @@ export function Home() {
               </Text>
             </View>
           )}
-          contentContainerStyle={{ paddingBottom: 24 }}
+          contentContainerStyle={{ paddingBottom: 10 }}
         />
+
+        {isAnyEvent && (
+          <Pressable
+            onPress={handleWarningDeleteEvent}
+            style={[
+              styles.textButton,
+              styles.deleteEventBorderButton,
+              backgroundColorDeleteButton
+            ]}
+            onPressIn={handleDeleteButtonFocus}
+            onPressOut={handleDeleteButtonBlur}
+          >
+            <Text style={styles.eventDetailsText}>Deletar Evento</Text>
+          </Pressable>
+        )
+        }
       </View>
       <Modal
         animationType='fade'
@@ -275,10 +359,11 @@ export function Home() {
           title={titleModal}
           subtitle={subtitleModal}
           onCloseModal={handleCloseWarningModal}
-          confirmButton={handleDeleteParticipant}
+          confirmButton={handleConfirmModalFunction}
           footerWithDeteteButton={isModalCancelButton}
         />
       </Modal>
     </View >
   );
-}             
+}
+
