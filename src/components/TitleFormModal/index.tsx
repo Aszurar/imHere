@@ -79,6 +79,9 @@ export function TitleFormModal({
         <View style={styles.inputContainer}>
           <TextInput
             style={[styles.input, { borderBottomColor: eventNameInputBottomBorderColor }]}
+            autoCorrect
+            autoComplete='email'
+            autoCapitalize='none'
             returnKeyType="send"
             keyboardType="email-address"
             placeholder='Nome do evento'
@@ -87,7 +90,7 @@ export function TitleFormModal({
             value={eventName}
             onSubmitEditing={() => dateInputRef.current?.focus()}
           />
-          {eventNameInvalidMessage && <Text style={styles.invalidMessage} >{eventNameInvalidMessage}</Text>}
+          {!!eventNameInvalidMessage && <Text style={styles.invalidMessage} >{eventNameInvalidMessage}</Text>}
         </View>
         <Text style={styles.title}>Qual a data do evento?</Text>
         <View style={styles.inputContainer}>
@@ -103,7 +106,7 @@ export function TitleFormModal({
             value={eventDate}
             onSubmitEditing={handleSubmit}
           />
-          {dateInvalidMessage && <Text style={styles.invalidMessage} >{dateInvalidMessage}</Text>}
+          {!!dateInvalidMessage && <Text style={styles.invalidMessage} >{dateInvalidMessage}</Text>}
         </View>
 
         <View style={styles.Footer}>

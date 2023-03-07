@@ -1,5 +1,5 @@
 import React, { SetStateAction, useCallback, useEffect, useState } from 'react';
-import { FlatList, Keyboard, Modal, Pressable, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
+import { FlatList, Keyboard, Modal, Pressable, RefreshControl, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
 import 'react-native-get-random-values';
 import { v4 as uuidV4 } from "uuid";
 
@@ -23,6 +23,7 @@ import { styles } from './styles';
 import { Button } from '../../components/Button';
 import { deleteEventDetails } from '../../storage/eventDetails/deleteEventDetails';
 import { deleteEvent } from '../../storage/event/deleteEvent';
+import theme from '../../theme';
 
 type DeleteEventOrParticipantProps = "event" | "participant"
 
@@ -38,6 +39,7 @@ export function Home() {
   const [eventName, setEventName] = useState('Nome do evento');
   const [participant, setParticipant] = useState('');
   const [participantsList, setParticipantsList] = useState<IParticipantsProps[]>([]);
+  const [isParticipantsListLoading, setIsParticipantsListLoading] = useState(false);
 
   const [isSwitchEventDetailsButtonPressed, setIsSwitchEventDetailsButtonPressed] = useState(false);
   const [isDeleteButtonPressed, setIsDeleteButtonPressed] = useState(false);
@@ -174,9 +176,12 @@ export function Home() {
   }
   const handleGetAllParticipants = async () => {
     try {
+      setIsParticipantsListLoading(true);
       const participantsStoraged = await getAllParticipants();
       setParticipantsList(participantsStoraged)
+      setIsParticipantsListLoading(false);
     } catch (error) {
+      setIsParticipantsListLoading(false);
       handleOpenWarningModal({
         title: "Erro ao tentar resgatar participantes salvos",
         subtitle: `Por favor, tente mais tarde.`,
@@ -263,25 +268,28 @@ export function Home() {
                   <Text style={styles.title}>{eventNameFormatted}</Text>
                   <Text style={styles.date}>{eventDateFormatted}.</Text>
                 </View>
-                {(isEventDetails) && <Button deleteIcon onPress={handleDeleteEventDetails} />}
+                {(!!isEventDetails) && <Button deleteIcon onPress={handleDeleteEventDetails} />}
               </View>
               <Pressable
                 onPress={handleOpenModal}
                 style={[
-                  styles.textButton,
+                  styles.button,
                   styles.eventDetailsBorderButton,
                   backgroundColorSwitchEventDetailsButton
                 ]}
                 onPressIn={handleSwitchEventDetailsButtonFocus}
                 onPressOut={handleSwitchEventDetailsButtonBlur}
               >
-                <Text style={styles.eventDetailsText}>Trocar nome e data do evento</Text>
+                <Text style={styles.buttonText}>Trocar nome e data do evento</Text>
               </Pressable>
             </View>
           </View>
           <View style={styles.inputContainer}>
             <Input
               value={participant}
+              autoCorrect
+              autoComplete='name'
+              autoCapitalize='words'
               placeholder="Nome do participante"
               onChangeText={handleNewParticipant}
               handleAddNewParticipantToParticipantsList={handleAddNewParticipantToParticipantsList}
@@ -294,12 +302,26 @@ export function Home() {
 
       <View style={styles.subtitleContainer}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <Text style={styles.subtitle}>Participantes</Text>
+          <View style={styles.labelList}>
+            <Text style={styles.subtitle}>Participantes</Text>
+            <Text style={styles.subtitle}>{totalParticipants}</Text>
+          </View>
         </TouchableWithoutFeedback>
         <FlatList
           data={participantsList}
           keyExtractor={item => item.id}
           showsVerticalScrollIndicator={false}
+          refreshControl={
+            <RefreshControl
+              colors={[
+                theme.COLORS.HIGHLIGHT_SECONDARY,
+                theme.COLORS.HIGHLIGHT,
+                theme.COLORS.BACKGROUND,
+              ]}
+              refreshing={isParticipantsListLoading}
+              onRefresh={handleGetAllParticipants}
+            />
+          }
           style={{ marginTop: 12 }}
           renderItem={({ item }) => (
             <Participant
@@ -324,14 +346,14 @@ export function Home() {
           <Pressable
             onPress={handleWarningDeleteEvent}
             style={[
-              styles.textButton,
+              styles.button,
               styles.deleteEventBorderButton,
               backgroundColorDeleteButton
             ]}
             onPressIn={handleDeleteButtonFocus}
             onPressOut={handleDeleteButtonBlur}
           >
-            <Text style={styles.eventDetailsText}>Deletar Evento</Text>
+            <Text style={styles.buttonText}>Deletar Evento</Text>
           </Pressable>
         )
         }

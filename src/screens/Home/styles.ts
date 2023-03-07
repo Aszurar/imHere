@@ -29,7 +29,7 @@ export const styles = StyleSheet.create({
     lineheight: 19,
     color: theme.COLORS.TEXT_SECONDARY,
   },
-  textButton: {
+  button: {
     marginTop: 16,
     padding: 10,
     width: '80%',
@@ -47,7 +47,7 @@ export const styles = StyleSheet.create({
   eventDetailsBackgroundButtonDisable: {
     backgroundColor: 'transparent',
   },
-  eventDetailsText: {
+  buttonText: {
     fontfamily: theme.FONTS.BOLD,
     fontsize: 16,
     color: theme.COLORS.TEXT_PRIMARY,
@@ -57,6 +57,11 @@ export const styles = StyleSheet.create({
   },
   subtitleContainer: {
     flex: 1,
+  },
+
+  labelList: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   subtitle: {
     fontFamily: theme.FONTS.BOLD,
