@@ -243,6 +243,7 @@ export function Home() {
     setParticipant('');
     handleSaveParticipantsList(newParticipant)
     handleGetAllParticipants();
+    Keyboard.dismiss();
   }
   const handleWarningRemoveParticipant = (participant: IParticipantsProps) => {
     setRemovePartipantId(participant.id);
