@@ -5,14 +5,19 @@ import { styles } from './styles';
 
 type IParticipantProps = {
   name: string;
+}
+
+interface ParticipantItemListProps {
+  item: IParticipantProps;
   handleRemoveParticipant: (name: string) => void;
 }
 
-export function Participant({ name, handleRemoveParticipant }: IParticipantProps) {
+export function Participant({ item, handleRemoveParticipant }: ParticipantItemListProps) {
+  const { name } = item
   return (
     <View style={styles.container}>
       <View style={styles.main}>
-        <Text style={styles.name}>{name}</Text>
+        <Text style={styles.name} numberOfLines={1} ellipsizeMode='tail' >{name}</Text>
       </View>
       <Button deleteIcon onPress={() => handleRemoveParticipant(name)} />
     </View >

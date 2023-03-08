@@ -1,18 +1,19 @@
-import { StyleSheet } from "react-native";
-import theme from "../../theme";
+import { StyleSheet } from 'react-native';
+import theme from '../../theme';
 
+export const ITEM_LIST_HEIGHT = 60;
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    height: 60,
-    flexDirection: "row",
-    // alignItes: 'center',
+    height: ITEM_LIST_HEIGHT,
+    flexDirection: 'row',
     justifyContent: 'center',
   },
   main: {
     flex: 1,
     height: 60,
+    paddingRight: 16,
     paddingLeft: 16,
     justifyContent: 'center',
     backgroundColor: theme.COLORS.BACKGROUND_SECONDARY,
@@ -32,5 +33,5 @@ export const styles = StyleSheet.create({
   buttonText: {
     color: '#fff',
     fontSize: 16,
-  }
-})
+  },
+});

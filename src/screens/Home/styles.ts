@@ -70,6 +70,12 @@ export const styles = StyleSheet.create({
 
     color: theme.COLORS.TEXT_PRIMARY,
   },
+  participantList: {
+    marginTop: 12,
+  },
+  contentContainerStyle: {
+    paddingBottom: 10,
+  },
   textContainer: {
     marginTop: 28,
     alignItems: 'center',

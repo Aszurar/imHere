@@ -24,6 +24,7 @@ import { Button } from '../../components/Button';
 import { deleteEventDetails } from '../../storage/eventDetails/deleteEventDetails';
 import { deleteEvent } from '../../storage/event/deleteEvent';
 import theme from '../../theme';
+import { ITEM_LIST_HEIGHT } from '../../components/Participant/styles';
 
 type DeleteEventOrParticipantProps = "event" | "participant"
 
@@ -33,6 +34,22 @@ interface handleOpenWarningModalProps {
   isModalCancelButton?: boolean;
   isDeleteEventOrParticipant?: DeleteEventOrParticipantProps;
 }
+
+const keyExtractor = (item: IParticipantsProps) => item.id;
+const ItemSeparator = () => (<View style={{ height: 10 }} />)
+const ListEmptyComponent = () => (
+  <View style={styles.textContainer}>
+    <Text style={styles.text}>
+      Ninguém chegou no evento ainda?{"\n"}
+      Adicione participantes a sua lista de presença.
+    </Text>
+  </View>
+)
+const getItemLayout = (_: IParticipantsProps[] | null | undefined, index: number) => ({
+  length: ITEM_LIST_HEIGHT,
+  offset: ITEM_LIST_HEIGHT * index,
+  index
+});
 
 export function Home() {
   const [eventDate, setEventDate] = useState("");
@@ -252,6 +269,15 @@ export function Home() {
 
   const handleConfirmModalFunction = isDeleteEvent ? handleDeleteEvent : handleDeleteParticipant;
 
+
+  const PartipantItemList = ({ item }: { item: IParticipantsProps }) => (
+    <Participant
+      key={item.id}
+      item={item}
+      handleRemoveParticipant={() => handleWarningRemoveParticipant(item)}
+    />
+  )
+
   useEffect(() => {
     handleGetEventDetails();
     handleGetAllParticipants();
@@ -307,9 +333,10 @@ export function Home() {
             <Text style={styles.subtitle}>{totalParticipants}</Text>
           </View>
         </TouchableWithoutFeedback>
+
         <FlatList
           data={participantsList}
-          keyExtractor={item => item.id}
+          keyExtractor={keyExtractor}
           showsVerticalScrollIndicator={false}
           refreshControl={
             <RefreshControl
@@ -322,24 +349,12 @@ export function Home() {
               onRefresh={handleGetAllParticipants}
             />
           }
-          style={{ marginTop: 12 }}
-          renderItem={({ item }) => (
-            <Participant
-              key={item.id}
-              name={item.name}
-              handleRemoveParticipant={() => handleWarningRemoveParticipant(item)}
-            />
-          )}
-          ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
-          ListEmptyComponent={() => (
-            <View style={styles.textContainer}>
-              <Text style={styles.text}>
-                Ninguém chegou no evento ainda?{"\n"}
-                Adicione participantes a sua lista de presença.
-              </Text>
-            </View>
-          )}
-          contentContainerStyle={{ paddingBottom: 10 }}
+          getItemLayout={getItemLayout}
+          style={styles.participantList}
+          renderItem={PartipantItemList}
+          ItemSeparatorComponent={ItemSeparator}
+          ListEmptyComponent={ListEmptyComponent}
+          contentContainerStyle={styles.contentContainerStyle}
         />
 
         {isAnyEvent && (
