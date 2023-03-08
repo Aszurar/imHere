@@ -4,7 +4,7 @@
   "backgroundColor": "#131016",
   "expo": {
     "name": "imHere",
-    "slug": "imHere",
+    "slug": "imhere",
     "version": "1.4.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
