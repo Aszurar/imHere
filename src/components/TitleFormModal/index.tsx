@@ -80,10 +80,8 @@ export function TitleFormModal({
           <TextInput
             style={[styles.input, { borderBottomColor: eventNameInputBottomBorderColor }]}
             autoCorrect
-            autoComplete='email'
-            autoCapitalize='none'
+            autoCapitalize='sentences'
             returnKeyType="send"
-            keyboardType="email-address"
             placeholder='Nome do evento'
             onChangeText={setEventName}
             placeholderTextColor={theme.COLORS.TEXT_SECONDARY}
