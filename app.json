@@ -4,8 +4,8 @@
   "backgroundColor": "#131016",
   "expo": {
     "name": "imHere",
-    "slug": "imhere",
-    "version": "1.4.0",
+    "slug": "imHere",
+    "version": "2.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
@@ -15,7 +15,8 @@
       "backgroundColor": "#131016"
     },
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 0,
+      "url": "https://u.expo.dev/74c216c5-a199-492b-817b-63791d8c24d8"
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
@@ -27,12 +28,7 @@
         "backgroundColor": "#131016"
       },
       "package": "com.aszurar.imhere",
-      "versionCode": "1.4.0"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "9a78f5fe-f65f-440a-af63-cb66e883e2ab"
-      }
+      "versionCode": "2.0.0"
     },
     "description": "This is a simple mobile project created with React Native and TypeScript with the purpose of studying these technologies.\n\nThe project consists of a list of participants of some event.\n\nWe can:\n- Add a participant;\n- Remove a participant;\n- Remove all participants;\n- Add Event details like name and date and remove these data.\n\nIn addition, all this data is persistent with Async-Storage, that is, it is saved locally on your device.\n\nIt's a project that was developed in Rocketseat's Ignite - React Native bootcamp.",
     "githubUrl": "https://github.com/Aszurar/imHere"
