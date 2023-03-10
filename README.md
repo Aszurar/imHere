@@ -1,3 +1,6 @@
+<div align="center">
+    <img src="https://i.imgur.com/ny4XIAB.png" width="1000">
+</div>
 # imHere
 
 O projeto **imHere** é um aplicativo mobile que lista os participantes de um evento e detalhes desse evento como nome e data.
@@ -10,7 +13,6 @@ O projeto **imHere** é um aplicativo mobile que lista os participantes de um ev
         <img src="https://play.google.com/intl/pt-BR/badges/static/images/badges/pt-br_badge_web_generic.png" width="200">
         </a>
      </div>
-
       <h3 align="center">
         <a href="#information_source-sobre">Sobre</a>&nbsp;|&nbsp;
         <a href="#interrobang-motivo">Motivo</a>&nbsp;|&nbsp;

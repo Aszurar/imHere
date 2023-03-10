@@ -3339,12 +3339,7 @@ expo-constants@~13.2.2, expo-constants@~13.2.3:
   dependencies:
     "@expo/config" "~7.0.0"
     uuid "^3.3.2"
-
-expo-eas-client@~0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/expo-eas-client/-/expo-eas-client-0.3.0.tgz#21383fc95a52e71e13c7276456db20388fefcf95"
-  integrity sha512-dBD00lJ629ayh5abbmgn6I1Z5NOaWM1iea2ODLd/EF1ZcS1P3yiPm6blpvL/tD+uewL8gxxmla/Ac+SiDdYAYA==
-
+    
 expo-error-recovery@~3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/expo-error-recovery/-/expo-error-recovery-3.2.0.tgz#3a4543382904a5e70829cb41d7fc0f022c2bef6e"
@@ -3434,7 +3429,6 @@ expo-updates@~0.14.6:
     "@expo/config-plugins" "~5.0.1"
     "@expo/metro-config" "~0.4.0"
     arg "4.1.0"
-    expo-eas-client "~0.3.0"
     expo-manifests "~0.3.0"
     expo-structured-headers "~2.2.0"
     expo-updates-interface "~0.7.0"
