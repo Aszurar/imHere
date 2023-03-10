@@ -60,22 +60,22 @@ O projeto **imHere** é um aplicativo mobile que lista os participantes de um ev
 
    - **Validação do formulário de cadastro do evento**
    <div align="center" >
-     <img src="https://i.imgur.com/B9xCP2R.png" ali  width="700">
+     <img src="https://i.imgur.com/B9xCP2R.png" ali  width="1000">
    </div>
 
 2. **Remoção do nome e data do evento**
 <div align="center" >
-   <img src="https://i.imgur.com/wkF7vrv.png" width="700">
+   <img src="https://i.imgur.com/wkF7vrv.png" width="1000">
 </div>
 
 3. **Cadastro de um novo participante**
    <div align="center" >
-      <img src="https://i.imgur.com/VrhpULU.png" width="500">
+      <img src="https://i.imgur.com/VrhpULU.png" width="1000">
    </div>
 
    - **Validação do campo de participante**
    <div align="center" >
-     <img src="https://i.imgur.com/D2NGS1z.jpg" ali  width="200">
+     <img src="https://i.imgur.com/D2NGS1z.jpg" ali  width="250">
    </div>
 
 4. **Remoção de participante**
