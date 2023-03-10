@@ -31,11 +31,15 @@ export function TitleFormModal({
   const eventNameInputBottomBorderColor = eventNameInvalidMessage ? theme.COLORS.TEXT_INVALID_MESSAGE : theme.COLORS.HIGHLIGHT_SECONDARY
 
   function validateDate(value?: string) {
+    setDateInvalidMessage("");
+
     if (!value) {
+      setDateInvalidMessage("É necessário informar uma data.");
       return false
     }
 
     if (!value.trim()) {
+      setDateInvalidMessage("É necessário informar uma data.");
       return false
     }
     if (!dateFormatValidation.format.test(value as string)) {
@@ -56,16 +60,20 @@ export function TitleFormModal({
 
     return true
   }
+  function validateRequiredEventName(value?: string) {
+    setEventNameInvalidMessage("");
+    if (!value || !value.trim()) {
+      setEventNameInvalidMessage("É necessário informar um nome para o evento.");
+      return false;
+    }
+    return true;
+  }
 
   function handleSubmit() {
-    setDateInvalidMessage("");
-    setEventNameInvalidMessage("");
-
     const isDateValid = validateDate(eventDate);
-    if (!eventName.trim() || !isDateValid) {
-      if (!eventName.trim()) {
-        setEventNameInvalidMessage("É necessário definir um nome para o vento");
-      }
+    const isEventNameValid = validateRequiredEventName(eventName);
+
+    if (!isDateValid || !isEventNameValid) {
       return;
     }
 
