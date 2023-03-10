@@ -17,8 +17,10 @@ O projeto **imHere** é um aplicativo mobile que lista os participantes de um ev
         <a href="#art-design">Design</a>&nbsp;|&nbsp;
         <a href="#seedling-requisitos-mínimos">Requisitos</a>&nbsp;|&nbsp;
         <a href="#rocket-principais-tecnologias-utilizadas">Tecnologias</a>&nbsp;|&nbsp;
-        <a href="#truck-continuous-delivery-and-distribution">CI/CD</a>|&nbsp;&nbsp;
+        <a
+        href="#truck-entrega-e-distribuição-continua">CI/CD</a>&nbsp;|&nbsp;
         <a href="#package-como-baixar-e-executar-o-projeto">Baixar e Executar</a>&nbsp;
+
       </h3>
 
 ---
@@ -27,7 +29,7 @@ O projeto **imHere** é um aplicativo mobile que lista os participantes de um ev
     <img src="https://i.imgur.com/jBsiTXa.gif" width="200">____<img src="https://i.imgur.com/EekAVnU.gif" width=200>
 </div>
 
-- [**Link do vídeo completo sobre o projeto**]()
+- **[Link do vídeo completo sobre o projeto](https://youtu.be/29PYuFlgeW8)**
 
 ---
 
@@ -88,7 +90,7 @@ O projeto **imHere** é um aplicativo mobile que lista os participantes de um ev
 
 Esse projeto tem o objetivo de praticar os conceitos básicos do React Native e seus componentes, além de praticar o uso de TypeScript e também de algumas libs como o AsyncStorage.
 É um projeto simples, mas que trata da base de um aplicativo mobile, onde temos uma listagem, cadastro, remoção e edição de dados.
-Além disso **é um projeto que tem sua base desenvolvida no primeiro módulo do bootcamp Ignite de React Native da (Rocketseat)[https://www.rocketseat.com.br/]**.
+Além disso **é um projeto que tem sua base desenvolvida no primeiro módulo do bootcamp Ignite de React Native da <a href="https://www.rocketseat.com.br/">Rocketseat</a>**.
 
 Nesse primeiro módulos focamos na interface e nos conceitos básicos do React Native.
 Com isso, **toda essa parte de persistência de dados com Async-Storage, modificação do nome do evento, data do evento, formatação de datas, tudo isso foram melhorados e adicionados por mim.**
@@ -97,7 +99,9 @@ Com isso, **toda essa parte de persistência de dados com Async-Storage, modific
 
 ## :art: Design
 
-[<h2 align="center">imHere</h2>](https://www.figma.com/file/dKgBKYu2CNU1yazm38RTOe/ImHere?node-id=0%3A1&t=rCIBiTQvrLQaibpd-0)
+<a href="https://www.figma.com/file/dKgBKYu2CNU1yazm38RTOe/ImHere?node-id=0%3A1&t=rCIBiTQvrLQaibpd-0">
+<h2 align="center">imHere</h2>
+</a>
 
 <div align="center">
 <a href="https://www.figma.com/file/dKgBKYu2CNU1yazm38RTOe/ImHere?node-id=0%3A1&t=rCIBiTQvrLQaibpd-0">
@@ -138,7 +142,7 @@ O projeto foi desenvolvido utilizando as seguintes tecnologias
 
 ---
 
-## 🚚 CI/CD
+## :truck: Entrega e distribuição continua
 
 - Para a publicação do aplicativo, primeiro foi gerada a build manualmente com o comando <code>**./gradlew bundleRelease**</code>, utilizando o build.gradle dentro da pasta android, que foi configurado com enableProguardInReleaseBuilds e enableHermes como true.
 - Essa build foi enviada para o Google Play Console, onde todas as configurações do projeto Android foram personalizadas, incluindo a descrição, nome e imagens do aplicativo.
@@ -146,6 +150,11 @@ O projeto foi desenvolvido utilizando as seguintes tecnologias
 - Em seguida, foi integrado o repositório remoto do projeto, que está no GitHub, com a plataforma App Center da Microsoft para gerar o CI/CD. O App Center observa a branch main, que é a de produção, e automaticamente gera uma nova build do aplicativo e envia para a Google Play Store sempre que há um push na branch.
 
 - Antes de usar o App Center, foi realizada toda a configuração necessária para que a plataforma possa realizar esse processo de forma automática.
+- Segue o link das plataformas usadas:
+  - [App Center](https://appcenter.ms/);
+  - [Github](https://github.com/);
+  - [Google Play Console](https://play.google.com/console/about/);
+  - [Google Cloud Platform](https://console.cloud.google.com/);
 
 <div align="center">
 <img src="https://i.imgur.com/29M1Y6R.png" width="1000">
