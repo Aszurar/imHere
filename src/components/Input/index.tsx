@@ -12,8 +12,6 @@ export function Input({ handleAddNewParticipantToParticipantsList, ...rest }: II
   return (
     <View style={styles.container}>
       <TextInput style={styles.input}
-        keyboardType="email-address"
-        returnKeyType="send"
         placeholderTextColor={theme.COLORS.TEXT_SECONDARY}
         onSubmitEditing={handleAddNewParticipantToParticipantsList}
         {...rest} />
