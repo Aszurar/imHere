@@ -9,7 +9,7 @@ O projeto **imHere** é um aplicativo mobile que lista os participantes de um ev
 <div style="display:flex;">
   <div style="flex-basis:50%;">
     <h3>Google Play Store:</h3>
-    <p> - Baixe e instale em seus dispositivo Android pela Google Play Store: <a href="https://play.google.com/store/apps/details?id=com.aszurar.imhere"><h6>imHere</h6></a></p>
+    <p> - Baixe e instale em seus dispositivo Android pela Google Play Store: <h6><a href="https://play.google.com/store/apps/details?id=com.aszurar.imhere">imHere</a></h6></p>
     <p> - O aplicativo foi enviando para produção com todo seu ciclo de CI/CD automatizado para o Android:</p>
     <div align="center" >
       <a href="https://play.google.com/store/apps/details?id=com.aszurar.imhere">
@@ -19,7 +19,7 @@ O projeto **imHere** é um aplicativo mobile que lista os participantes de um ev
   </div>
   <div style="flex-basis:50%;">
     <h3>Expo:</h3>
-    <p> - Também é possível baixar e testar o App pelo Expo Go, ele foi publicado na plataforma do Expo: <a href="https://expo.dev/@aszurar/imHere"><h6>imHere</h6></a> </p>
+    <p> - Também é possível baixar e testar o App pelo Expo Go, ele foi publicado na plataforma do Expo: <h6><a href="https://expo.dev/@aszurar/imHere">imHere</a></h6> </p>
     <div align="center" >
       <img src="https://qr.expo.dev/expo-go?owner=aszurar&slug=imHere&releaseChannel=default&host=exp.host" width="200">
     </div>
