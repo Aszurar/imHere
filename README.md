@@ -1,31 +1,45 @@
 <div align="center">
     <img src="https://i.imgur.com/ny4XIAB.png" width="1000">
 </div>
+
 # imHere
 
 O projeto **imHere** é um aplicativo mobile que lista os participantes de um evento e detalhes desse evento como nome e data.
 
-- Baixe e instale em seus dispositivo Android pela Google Play Store: [**imHere**](https://play.google.com/store/apps/details?id=com.aszurar.imhere)
-
-  - O aplicativo foi enviando para produção com todo seu ciclo de CI/CD automatizado para o Android:
+<div style="display:flex;">
+  <div style="flex-basis:50%;">
+    <h3>Google Play Store:</h3>
+    <p> - Baixe e instale em seus dispositivo Android pela Google Play Store: <a href="https://play.google.com/store/apps/details?id=com.aszurar.imhere"><h6>imHere</h6></a></p>
+    <p> - O aplicativo foi enviando para produção com todo seu ciclo de CI/CD automatizado para o Android:</p>
     <div align="center" >
-        <a href="https://play.google.com/store/apps/details?id=com.aszurar.imhere" >
+      <a href="https://play.google.com/store/apps/details?id=com.aszurar.imhere">
         <img src="https://play.google.com/intl/pt-BR/badges/static/images/badges/pt-br_badge_web_generic.png" width="200">
-        </a>
-     </div>
-      <h3 align="center">
-        <a href="#information_source-sobre">Sobre</a>&nbsp;|&nbsp;
-        <a href="#interrobang-motivo">Motivo</a>&nbsp;|&nbsp;
-        <a href="#art-design">Design</a>&nbsp;|&nbsp;
-        <a href="#seedling-requisitos-mínimos">Requisitos</a>&nbsp;|&nbsp;
-        <a href="#rocket-principais-tecnologias-utilizadas">Tecnologias</a>&nbsp;|&nbsp;
-        <a
-        href="#truck-entrega-e-distribuição-continua">CI/CD</a>&nbsp;|&nbsp;
-        <a href="#package-como-baixar-e-executar-o-projeto">Baixar e Executar</a>&nbsp;
-
-      </h3>
+      </a>
+    </div>
+  </div>
+  <div style="flex-basis:50%;">
+    <h3>Expo:</h3>
+    <p> - Também é possível baixar e testar o App pelo Expo Go, ele foi publicado na plataforma do Expo: <a href="https://expo.dev/@aszurar/imHere"><h6>imHere</h6></a> </p>
+    <div align="center" >
+      <img src="https://qr.expo.dev/expo-go?owner=aszurar&slug=imHere&releaseChannel=default&host=exp.host" width="200">
+    </div>
+  </div>
+</div>
 
 ---
+
+<div>
+        <h3 align="center">
+          <a href="#information_source-sobre">Sobre</a>&nbsp;|&nbsp;
+          <a href="#interrobang-motivo">Motivo</a>&nbsp;|&nbsp;
+          <a href="#art-design">Design</a>&nbsp;|&nbsp;
+          <a href="#seedling-requisitos-mínimos">Requisitos</a>&nbsp;|&nbsp;
+          <a href="#rocket-principais-tecnologias-utilizadas">Tecnologias</a>&nbsp;|&nbsp;
+          <a
+          href="#truck-entrega-e-distribuição-continua">CI/CD</a>&nbsp;|&nbsp;
+          <a href="#package-como-baixar-e-executar-o-projeto">Baixar e Executar</a>&nbsp;
+        </h3>
+</div>
 
 <div align="center" >
     <img src="https://i.imgur.com/jBsiTXa.gif" width="200">____<img src="https://i.imgur.com/EekAVnU.gif" width=200>
