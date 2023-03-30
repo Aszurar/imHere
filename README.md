@@ -192,7 +192,7 @@ O projeto foi desenvolvido utilizando as seguintes tecnologias
 
 - Clonar o projeto:
   ```bash
-   git clone https://github.com/Aszurar/imHere
+   git clone https://github.com/Aszurar/imHere.git
   ```
   - É necessário a instalação do **yarn** de acordo com seu sistema operacional, para isso veja como no site do [Yarn](https://yarnpkg.com/)
   - Instalação das dependências:
@@ -200,9 +200,9 @@ O projeto foi desenvolvido utilizando as seguintes tecnologias
   ```bash
     yarn
   ```
-  - É possível executar o projeto em um dispositivo físico caso não queira usar o emulador. Caso queira usar o emulador, faça instalação sua instalação por aqui: [Android Studios](https://developer.android.com/studio) e das tecnologias requesitadas acima no:seedling: <a href="#seedling-requisitos-mínimos">**Requisitos**</a>
+  - É possível executar o projeto em um dispositivo físico caso não queira usar o emulador. Caso queira usar o emulador, faça instalação sua instalação por aqui: [Android Studio](https://developer.android.com/studio) e das tecnologias requesitadas acima no:seedling: <a href="#seedling-requisitos-mínimos">**Requisitos**</a>
   - Também é necessário a instalação/configuração de outras tecnologias, para isso siga os passos indicados nessa página de acordo com seu sistema operacional: [Executando uma Aplicação React-Native emulando Windows/Linux/MacOS ou direto no dispositivo mobile Android/IOS](https://react-native.rocketseat.dev/android/linux)
-- Execução -
+- Execução
   - Com o emulador android aberto ou o dispositivo móvel físico conecatdo via USB:
   - **Abra a pasta do projeto com alguma IDE(Vscode) ou simplesmente abra o terminal na pasta do projeto e execute o comando abaixo:**
   ```bash
@@ -221,7 +221,7 @@ O projeto foi desenvolvido utilizando as seguintes tecnologias
   ```bash
       yarn ios
   ```
-
+- Lembrando que, caso seja executado pelo emulador, o ideal é sempre deixa-lo aberto antes de aplicar os comandos acima.
 ---
 
 Desenvolvido por :star2: Lucas de Lima Martins de Souza.
