@@ -5,24 +5,22 @@
 # imHere
 
 O projeto **imHere** é um aplicativo mobile que lista os participantes de um evento e detalhes desse evento como nome e data.
-<p> - O aplicativo foi enviando para produção com todo seu ciclo de CI/CD automatizado para o Android:</p>
+
 
 <div style="display:flex">
   <div style="flex-basis:50%">
     <h3>Google Play Store:</h3>
     <p> - Baixe e instale em seus dispositivo Android pela Google Play Store: <h6><a href="https://play.google.com/store/apps/details?id=com.aszurar.imhere">imHere</a></h6></p>
     <div align="center" >
-        
+        <p> - O aplicativo foi enviando para produção com todo seu ciclo de CI/CD automatizado para o Android:</p>
       <a href="https://play.google.com/store/apps/details?id=com.aszurar.imhere">
-          
         <img src="https://play.google.com/intl/pt-BR/badges/static/images/badges/pt-br_badge_web_generic.png" width="200">
-      
-        </a>
-    
+      </a>
     </div>
-    
   </div>
-  <div style="flex-basis:50%;">
+  
+  
+  <div style="flex-basis:50%">
     <h3>Expo:</h3>
     <p> - Também é possível baixar e testar o App pelo Expo Go, ele foi publicado na plataforma do Expo: <h6><a href="https://expo.dev/@aszurar/imHere">imHere</a></h6> </p>
     <div align="center" >
