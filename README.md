@@ -55,8 +55,8 @@ O projeto **imHere** é um aplicativo mobile que lista os participantes de um ev
 ## :information_source: Sobre
 
 - A ideia desse aplicativo é poder listar todos os participaentes de um evento, além de poder adicioná-los, removê-los e também cadastrar o nome e a data do evento. Ou seja, é basicamente uma aplicação CRUD básica, onde temos uma listagem, cadastro, remoção e edição de dados.
-  - Para a construção da interface desse projeto foi usado **React Native** com **TypeScript**.
-  - Usamos o **AsyncStorage** para armazenar os dados localmente.
+  - Para a construção da interface desse projeto foi usado **[React Native](https://reactnative.dev/)** com **[TypeScript](https://www.typescriptlang.org/)**.
+  - Usamos o **[AsyncStorage](https://react-native-async-storage.github.io/async-storage/docs/install/)** para armazenar os dados localmente.
   - Usamos as libs react-native-svg e react-native-svg-transformer para a utilização de SVGs no projeto.
   - Usamos o Expo para auxiliar no desenvolvimento do projeto.
   - A estilização é feita com StyleSheet já que a ideia é entender o básico do React Native.
