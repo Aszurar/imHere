@@ -55,7 +55,9 @@ O projeto **imHere** é um aplicativo mobile que lista os participantes de um ev
 ## :information_source: Sobre
 
 - A ideia desse aplicativo é poder listar todos os participaentes de um evento, além de poder adicioná-los, removê-los e também cadastrar o nome e a data do evento. Ou seja, é basicamente uma aplicação CRUD básica, onde temos uma listagem, cadastro, remoção e edição de dados.
-  - Para a construção da interface desse projeto foi usado **[React Native](https://reactnative.dev/)** com **[TypeScript](https://www.typescriptlang.org/)**.
+- É o 1º projeto do bootcamp **Ignite da trilha React Native 2021 da [Rocketseat](https://www.rocketseat.com.br/)**
+  - **Originalmente o projeto não tinha funcionalidade de persistência de dados, mas foi adicionado o AsyncStorage para que os dados não sejam perdidos ao fechar o aplicativo.**
+- Para a construção da interface desse projeto foi usado **[React Native](https://reactnative.dev/)** com **[TypeScript](https://www.typescriptlang.org/)**.
   - Usamos o **[AsyncStorage](https://react-native-async-storage.github.io/async-storage/docs/install/)** para armazenar os dados localmente.
   - Usamos as libs react-native-svg e react-native-svg-transformer para a utilização de SVGs no projeto.
   - Usamos o Expo para auxiliar no desenvolvimento do projeto.
@@ -88,6 +90,18 @@ O projeto **imHere** é um aplicativo mobile que lista os participantes de um ev
    <img src="https://i.imgur.com/wkF7vrv.png" width="1000">
 </div>
 
+
+
+---
+
+## :interrobang: Motivo
+
+- Esse projeto tem o objetivo de praticar os conceitos básicos do React Native e seus componentes, além de praticar o uso de TypeScript e também de algumas libs como o AsyncStorage.
+- É um projeto simples, mas que trata da base de um aplicativo mobile, onde temos uma listagem, cadastro, remoção e edição de dados.
+Além disso **é um projeto que tem sua base desenvolvida no primeiro módulo do bootcamp Ignite de React Native da <a href="https://www.rocketseat.com.br/">Rocketseat</a>**.
+- É o 1º projeto do bootcamp **Ignite da trilha React Native 2021 da [Rocketseat](https://www.rocketseat.com.br/)**
+- Nesse primeiro módulo focamos na interface e nos conceitos básicos do React Native. Com isso, **toda essa parte de persistência de dados com Async-Storage, modificação do nome do evento, data do evento, formatação de datas, tudo isso foram melhorados e adicionados por mim.**
+
 3. **Cadastro de um novo participante**
    <div align="center" >
       <img src="https://i.imgur.com/VrhpULU.png" width="1000">
@@ -105,18 +119,7 @@ O projeto **imHere** é um aplicativo mobile que lista os participantes de um ev
 
 5. **Remoção de todos os dados cadastrados**
    <img src="https://i.imgur.com/ngAnDoN.png" width="1000">
-
----
-
-## :interrobang: Motivo
-
-Esse projeto tem o objetivo de praticar os conceitos básicos do React Native e seus componentes, além de praticar o uso de TypeScript e também de algumas libs como o AsyncStorage.
-É um projeto simples, mas que trata da base de um aplicativo mobile, onde temos uma listagem, cadastro, remoção e edição de dados.
-Além disso **é um projeto que tem sua base desenvolvida no primeiro módulo do bootcamp Ignite de React Native da <a href="https://www.rocketseat.com.br/">Rocketseat</a>**.
-
-Nesse primeiro módulos focamos na interface e nos conceitos básicos do React Native.
-Com isso, **toda essa parte de persistência de dados com Async-Storage, modificação do nome do evento, data do evento, formatação de datas, tudo isso foram melhorados e adicionados por mim.**
-
+   
 ---
 
 ## :art: Design
