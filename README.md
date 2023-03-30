@@ -172,9 +172,10 @@ O projeto foi desenvolvido utilizando as seguintes tecnologias
 - Para a publicação do aplicativo, primeiro foi gerada a build manualmente com o comando <code>**./gradlew bundleRelease**</code>, utilizando o build.gradle dentro da pasta android, que foi configurado com enableProguardInReleaseBuilds e enableHermes como true.
 - Essa build foi enviada para o Google Play Console, onde todas as configurações do projeto Android foram personalizadas, incluindo a descrição, nome e imagens do aplicativo.
 
-- Em seguida, foi integrado o repositório remoto do projeto, que está no GitHub, com a plataforma **[App Center](https://appcenter.ms/) da Microsoft para realizar o CI/CD**. O App Center observa a branch main, que é a de produção, e automaticamente gera uma nova build do aplicativo e envia para a Google Play Store sempre que há um push na branch.
+- Em seguida, foi integrado o repositório remoto do projeto, que está no GitHub, com a plataforma **[App Center](https://appcenter.ms/) da Microsoft para realizar o CI/CD**. 
+  - **O App Center observa a branch main, que é a de produção, e toda vez que houver algum push nessa branch, ele automaticamente gera uma nova build do aplicativo e envia para a Google Play Store.**
 
-- Antes de usar o App Center, foi realizada toda a configuração necessária para que a plataforma possa realizar esse processo de forma automática.
+- Antes de usar o App Center, foi realizada toda a configuração necessária para que a plataforma possa realizar esse processo de forma automática e também foi necessário configurações no Google Cloud Platform e no Google Play Console.
 - Segue o link das plataformas usadas:
   - [App Center](https://appcenter.ms/);
   - [Github](https://github.com/);
