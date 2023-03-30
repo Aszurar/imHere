@@ -11,11 +11,12 @@ O projeto **imHere** é um aplicativo mobile que lista os participantes de um ev
   <div style="flex-basis:50%">
     <h3>Google Play Store:</h3>
     <p> - Baixe e instale em seus dispositivo Android pela Google Play Store: <h6><a href="https://play.google.com/store/apps/details?id=com.aszurar.imhere">imHere</a></h6></p>
-
     <div align="center" >
+        
       <a href="https://play.google.com/store/apps/details?id=com.aszurar.imhere">
         <img src="https://play.google.com/intl/pt-BR/badges/static/images/badges/pt-br_badge_web_generic.png" width="200">
       </a>
+    
     </div>
     
   </div>
