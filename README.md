@@ -6,6 +6,7 @@
 
 O projeto **imHere** é um aplicativo mobile que lista os participantes de um evento e detalhes desse evento como nome e data.
 <p> - O aplicativo foi enviando para produção com todo seu ciclo de CI/CD automatizado para o Android:</p>
+
 <div style="display:flex">
   <div style="flex-basis:50%">
     <h3>Google Play Store:</h3>
